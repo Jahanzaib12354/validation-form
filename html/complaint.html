@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complaint Form</title>
+<link rel="stylesheet" href="/css/complaint.css">
+</head>
+<body>
+<div class="card">
+  <h1>Customer Complaint Form</h1>
+  <form id="complaintForm">
+    <fieldset>
+      <legend>Personal Info</legend>
+      <input type="text" id="full-name" placeholder="Full Name">
+      <input type="email" id="email" placeholder="Email Address">
+    </fieldset>
+
+    <fieldset>
+      <legend>Product Info</legend>
+      <input type="text" id="order-no" placeholder="Order No (2024######)">
+      <input type="text" id="product-code" placeholder="Product Code (XX##-X###-XX#)">
+      <input type="number" id="quantity" min="1" placeholder="Quantity">
+    </fieldset>
+
+    <fieldset>
+      <legend>Complaint Reason</legend>
+      <div><input type="checkbox" id="damaged-product"><label for="damaged-product">Damaged Product</label></div>
+      <div><input type="checkbox" id="nonconforming-product"><label for="nonconforming-product">Nonconforming Product</label></div>
+      <div><input type="checkbox" id="delayed-dispatch"><label for="delayed-dispatch">Delayed Dispatch</label></div>
+      <div><input type="checkbox" id="other-complaint"><label for="other-complaint">Other</label></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Complaint Description</legend>
+      <textarea id="complaint-description" placeholder="At least 20 characters"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>Desired Solution</legend>
+      <div><input type="radio" name="solutions" id="refund"><label for="refund">Refund</label></div>
+      <div><input type="radio" name="solutions" id="exchange"><label for="exchange">Exchange</label></div>
+      <div><input type="radio" name="solutions" id="other-solution"><label for="other-solution">Other</label></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Solution Description</legend>
+      <textarea id="solution-description" placeholder="At least 20 characters"></textarea>
+    </fieldset>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script src="/js/complaint.js"></script>
+</body>
+</html>
