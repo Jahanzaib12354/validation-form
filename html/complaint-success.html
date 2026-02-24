@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complaint Summary</title>
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #f3e7ff, #ffe9f3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 800px;
+}
+
+h2 {
+    text-align: center;
+    color: #703587;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+th, td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background: #77ad44;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+tr:nth-child(even) { background: #f9f9f9; }
+tr:hover { background: #f1e6ff; }
+
+@media (max-width: 600px) {
+    table, thead, tbody, th, td, tr { display: block; }
+    th { text-align: right; }
+    tr { margin-bottom: 15px; }
+    td { text-align: right; padding-left: 50%; position: relative; }
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: 45%;
+        font-weight: bold;
+        text-align: left;
+    }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Complaint Summary</h2>
+    <table>
+        <tr><th>Full Name</th><td data-label="Full Name" id="td-fullname"></td></tr>
+        <tr><th>Email</th><td data-label="Email" id="td-email"></td></tr>
+        <tr><th>Order Category</th><td data-label="Order Category" id="td-category1"></td></tr>
+        <tr><th>Product Type</th><td data-label="Product Type" id="td-category2"></td></tr>
+        <tr><th>Issue Type</th><td data-label="Issue Type" id="td-category3"></td></tr>
+        <tr><th>Quantity</th><td data-label="Quantity" id="td-quantity"></td></tr>
+        <tr><th>Complaint Description</th><td data-label="Complaint Description" id="td-description"></td></tr>
+        <tr><th>Preferred Solution</th><td data-label="Preferred Solution" id="td-solution"></td></tr>
+    </table>
+</div>
+
+<script>
+// Fill table from localStorage
+document.getElementById("td-fullname").textContent = localStorage.getItem("complaintName");
+document.getElementById("td-email").textContent = localStorage.getItem("complaintEmail");
+document.getElementById("td-category1").textContent = localStorage.getItem("complaintCategory1");
+document.getElementById("td-category2").textContent = localStorage.getItem("complaintCategory2");
+document.getElementById("td-category3").textContent = localStorage.getItem("complaintCategory3");
+document.getElementById("td-quantity").textContent = localStorage.getItem("complaintQuantity");
+document.getElementById("td-description").textContent = localStorage.getItem("complaintDescription");
+document.getElementById("td-solution").textContent = localStorage.getItem("complaintSolution");
+</script>
+</body>
+</html>

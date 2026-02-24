@@ -7,60 +7,76 @@
 <link rel="stylesheet" href="/css/register.css">
 </head>
 <body>
-
 <div class="card">
-  <h2>Register</h2>
+    <h2>Register</h2>
+    <form id="registerForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="email" id="regEmail" placeholder="Email" required>
+        
+        <!-- Password -->
+        <div class="password-wrapper">
+            <input type="password" id="regPassword" placeholder="Password" required autocomplete="new-password">
+            <span class="show-hide" data-target="regPassword">Show</span>
+        </div>
+        <!-- Confirm Password -->
+        <div class="password-wrapper">
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required autocomplete="new-password">
+            <span class="show-hide" data-target="confirmPassword">Show</span>
+        </div>
 
-  <form id="registerForm">
-    
-    <input type="text" id="username" placeholder="Username" required>
-    
-    <input type="email" id="regEmail" placeholder="Email" required>
-
-    <!-- Password Field -->
-    <div class="password-wrapper">
-      <input type="password" id="regPassword" placeholder="Password" required autocomplete="new-password">
-      <span class="show-hide" data-target="regPassword">Show</span>
-    </div>
-
-    <!-- Confirm Password Field -->
-    <div class="password-wrapper">
-      <input type="password" id="confirmPassword" placeholder="Confirm Password" required autocomplete="new-password">
-      <span class="show-hide" data-target="confirmPassword">Show</span>
-    </div>
-
-    <input type="text" id="department" placeholder="Department" required>
-    
-    <input type="text" id="rollNumber" placeholder="Roll Number" required>
-
-    <button type="submit">Register</button>
-
-  </form>
-
-  <p>Already have an account? <a href="login.html">Login here</a></p>
+        <input type="text" id="department" placeholder="Department" required>
+        <input type="text" id="rollNumber" placeholder="Roll Number" required>
+        <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Login here</a></p>
 </div>
 
-<script src="/js/register.js"></script>
-
 <script>
-/* Show / Hide Toggle */
+/* Show/Hide password */
 const toggleLinks = document.querySelectorAll('.show-hide');
-
 toggleLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    const targetId = link.getAttribute('data-target');
-    const input = document.getElementById(targetId);
+    link.addEventListener('click', () => {
+        const input = document.getElementById(link.dataset.target);
+        if(input.type === 'password'){
+            input.type = 'text';
+            link.textContent = 'Hide';
+        } else {
+            input.type = 'password';
+            link.textContent = 'Show';
+        }
+    });
+});
 
-    if(input.type === 'password'){
-      input.type = 'text';
-      link.textContent = 'Hide';
-    } else {
-      input.type = 'password';
-      link.textContent = 'Show';
+/* Register Form Submit */
+const registerForm = document.getElementById("registerForm");
+registerForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("regEmail").value;
+    const password = document.getElementById("regPassword").value;
+    const confirm = document.getElementById("confirmPassword").value;
+    const department = document.getElementById("department").value;
+    const rollNumber = document.getElementById("rollNumber").value;
+
+    if(password !== confirm){
+        alert("Passwords do not match.");
+        return;
     }
-  });
+    if(password.length < 6){
+        alert("Password must be at least 6 characters.");
+        return;
+    }
+
+    // Save in localStorage
+    localStorage.setItem("userName", username);
+    localStorage.setItem("userEmail", email);
+    localStorage.setItem("userPassword", password);
+    localStorage.setItem("userDepartment", department);
+    localStorage.setItem("userRollNumber", rollNumber);
+
+    alert("Registration Successful!");
+    window.location.href = "login.html";
 });
 </script>
-
 </body>
 </html>
