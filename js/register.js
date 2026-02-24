@@ -21,7 +21,7 @@ registerForm.addEventListener("submit", function(e){
     return;
   }
 
-  // ✅ Save data in localStorage
+  // Save data in localStorage
   localStorage.setItem("userName", username);
   localStorage.setItem("userEmail", email);
   localStorage.setItem("userPassword", password);

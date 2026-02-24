@@ -3,61 +3,292 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Complaint Form</title>
-<link rel="stylesheet" href="/css/complaint.css">
+<title>Customer Complaint Form</title>
+
+<style>
+body {
+  background: linear-gradient(135deg, #f3e7ff, #ffe9f3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.card {
+  background: #ffffff;
+  padding: 35px 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  width: 100%;
+  max-width: 550px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #6c3483;
+}
+
+label {
+  font-weight: 600;
+  margin-top: 10px;
+  display: block;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+textarea {
+  resize: none;
+  height: 90px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 13px;
+  background: #8e44ad;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+button:hover {
+  background: #6c3483;
+}
+
+/* Locked style */
+.locked {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+/* ✅ ADD THIS PART */
+input[readonly],
+input:disabled {
+  cursor: not-allowed;
+  background-color: #f0f0f0;
+}
+
+/* Error Style */
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.error-field {
+  border: 1px solid red !important;
+}
+</style>
 </head>
+
 <body>
+
 <div class="card">
   <h1>Customer Complaint Form</h1>
+
   <form id="complaintForm">
-    <fieldset>
-      <legend>Personal Info</legend>
-      <!-- readonly so user cannot change -->
-      <input type="text" id="full-name" placeholder="Full Name" readonly>
-      <input type="email" id="email" placeholder="Email Address" readonly>
-    </fieldset>
 
-    <fieldset>
-      <legend>Product Info</legend>
-      <input type="text" id="order-no" placeholder="Order No (2024######)">
-      <input type="text" id="product-code" placeholder="Product Code (XX##-X###-XX#)">
-      <input type="number" id="quantity" min="1" placeholder="Quantity">
+    <label>Full Name</label>
+    <input type="text" id="full-name" readonly disabled>
 
-          <legend>Product Info</legend>
-      <input type="text" id="order-no" placeholder="Order No (2024######)">
-      <input type="text" id="product-code" placeholder="Product Code (XX##-X###-XX#)">
-      <input type="number" id="quantity" min="1" placeholder="Quantity">
-    </fieldset>
+    <label>Email</label>
+    <input type="email" id="email" readonly disabled>
 
-    <fieldset>
-      <legend>Complaint Reason</legend>
-      <div><input type="checkbox" id="damaged-product"><label for="damaged-product">Damaged Product</label></div>
-      <div><input type="checkbox" id="nonconforming-product"><label for="nonconforming-product">Nonconforming Product</label></div>
-      <div><input type="checkbox" id="delayed-dispatch"><label for="delayed-dispatch">Delayed Dispatch</label></div>
-      <div><input type="checkbox" id="other-complaint"><label for="other-complaint">Other</label></div>
-    </fieldset>
+    <label>Order Category</label>
+    <select id="category1">
+      <option value="">Select Order Type</option>
+      <option value="electronics">Electronics</option>
+      <option value="clothes">Clothes</option>
+      <option value="food">Food</option>
+    </select>
+    <span class="error" id="error-category1"></span>
 
-    <fieldset>
-      <legend>Complaint Description</legend>
-      <textarea id="complaint-description" placeholder="At least 20 characters"></textarea>
-    </fieldset>
+    <label>Product Type</label>
+    <select id="category2" disabled class="locked">
+      <option value="">Select Product</option>
+    </select>
+    <span class="error" id="error-category2"></span>
 
-    <fieldset>
-      <legend>Desired Solution</legend>
-      <div><input type="radio" name="solutions" id="refund"><label for="refund">Refund</label></div>
-      <div><input type="radio" name="solutions" id="exchange"><label for="exchange">Exchange</label></div>
-      <div><input type="radio" name="solutions" id="other-solution"><label for="other-solution">Other</label></div>
-    </fieldset>
+    <label>Issue Type</label>
+    <select id="category3" disabled class="locked">
+      <option value="">Select Issue</option>
+    </select>
+    <span class="error" id="error-category3"></span>
 
-    <fieldset>
-      <legend>Solution Description</legend>
-      <textarea id="solution-description" placeholder="At least 20 characters"></textarea>
-    </fieldset>
+    <label>Quantity</label>
+    <select id="quantity" disabled class="locked">
+      <option value="">Select Quantity</option>
+      <option value="1">1 Item</option>
+      <option value="2">2 Items</option>
+      <option value="3">3 Items</option>
+      <option value="4">4 Items</option>
+      <option value="5">5+ Items</option>
+    </select>
+    <span class="error" id="error-quantity"></span>
 
-    <button type="submit">Submit</button>
+    <label>Complaint Description</label>
+    <textarea id="complaint-description" disabled class="locked"></textarea>
+    <span class="error" id="error-description"></span>
+
+    <label>Preferred Solution</label>
+    <div class="radio-group">
+      <label><input type="radio" name="solution" value="Refund" disabled> Refund</label>
+      <label><input type="radio" name="solution" value="Exchange" disabled> Exchange</label>
+    </div>
+    <span class="error" id="error-solution"></span>
+
+    <button type="submit">Submit Complaint</button>
+
   </form>
 </div>
 
-<script src="/js/complaint.js"></script>
+<script>
+
+/* JS same as your original — no changes */
+
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("full-name").value = localStorage.getItem("userName") || "";
+  document.getElementById("email").value = localStorage.getItem("userEmail") || "";
+});
+
+const categoryData = {
+  electronics: {
+    products: ["Mobile", "Laptop", "Headphones", "Camera"],
+    issues: ["Not Working", "Damaged", "Battery Issue", "Screen Problem"]
+  },
+  clothes: {
+    products: ["Shirt", "Pant", "Jacket", "Shoes"],
+    issues: ["Wrong Size", "Color Fade", "Damaged Cloth", "Stitching Issue"]
+  },
+  food: {
+    products: ["Pizza", "Burger", "Cake", "Juice"],
+    issues: ["Expired", "Bad Taste", "Wrong Item", "Packaging Issue"]
+  }
+};
+
+const category1 = document.getElementById("category1");
+const category2 = document.getElementById("category2");
+const category3 = document.getElementById("category3");
+const quantity = document.getElementById("quantity");
+const description = document.getElementById("complaint-description");
+const solutionRadios = document.querySelectorAll('input[name="solution"]');
+
+category1.addEventListener("change", function() {
+  if(this.value !== ""){
+    category2.disabled = false;
+    category2.classList.remove("locked");
+
+    categoryData[this.value].products.forEach(function(product){
+      const option = document.createElement("option");
+      option.textContent = product;
+      option.value = product;
+      category2.appendChild(option);
+    });
+  }
+});
+
+category2.addEventListener("change", function() {
+  if(this.value !== ""){
+    category3.disabled = false;
+    category3.classList.remove("locked");
+
+    categoryData[category1.value].issues.forEach(function(issue){
+      const option = document.createElement("option");
+      option.textContent = issue;
+      option.value = issue;
+      category3.appendChild(option);
+    });
+  }
+});
+
+category3.addEventListener("change", function() {
+  if(this.value !== ""){
+    quantity.disabled = false;
+    quantity.classList.remove("locked");
+  }
+});
+
+quantity.addEventListener("change", function() {
+  if(this.value !== ""){
+    description.disabled = false;
+    description.classList.remove("locke");
+  }
+});
+
+description.addEventListener("input", function() {
+  if(this.value.trim() !== ""){
+    solutionRadios.forEach(radio => radio.disabled = false);
+  }
+});
+
+document.getElementById("complaintForm").addEventListener("submit", function(e){
+
+  e.preventDefault();
+  let isValid = true;
+
+  document.querySelectorAll(".error").forEach(el => el.textContent = "");
+  document.querySelectorAll("select, textarea").forEach(el => el.classList.remove("error-field"));
+
+  function showError(field, errorId, message){
+    document.getElementById(errorId).textContent = message;
+    field.classList.add("error-field");
+    isValid = false;
+  }
+
+  if(category1.value === ""){
+    showError(category1, "error-category1", "Please select Order Category");
+  }
+
+  if(category2.value === ""){
+    showError(category2, "error-category2", "Please select Product Type");
+  }
+
+  if(category3.value === ""){
+    showError(category3, "error-category3", "Please select Issue Type");
+  }
+
+  if(quantity.value === ""){
+    showError(quantity, "error-quantity", "Please select Quantity");
+  }
+
+  if(description.value.trim() === ""){
+    showError(description, "error-description", "Please enter Complaint Description");
+  }
+
+  if(!document.querySelector('input[name="solution"]:checked')){
+    document.getElementById("error-solution").textContent = "Please select Preferred Solution";
+    isValid = false;
+  }
+
+  if(isValid){
+    alert("Complaint Submitted Successfully!");
+    this.reset();
+  }
+
+});
+
+</script>
+
 </body>
 </html>
