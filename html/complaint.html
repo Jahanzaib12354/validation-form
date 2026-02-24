@@ -148,13 +148,13 @@ input:disabled {
     <span class="error" id="error-quantity"></span>
 
     <label>Complaint Description</label>
-    <textarea id="complaint-description" disabled class="locked"></textarea>
+    <textarea id="complaint-description"  ></textarea>
     <span class="error" id="error-description"></span>
 
     <label>Preferred Solution</label>
     <div class="radio-group">
-      <label><input type="radio" name="solution" value="Refund" disabled> Refund</label>
-      <label><input type="radio" name="solution" value="Exchange" disabled> Exchange</label>
+      <label><input type="radio" name="solution" value="Refund" > Refund</label>
+      <label><input type="radio" name="solution" value="Exchange" > Exchange</label>
     </div>
     <span class="error" id="error-solution"></span>
 
@@ -232,7 +232,7 @@ category3.addEventListener("change", function() {
 quantity.addEventListener("change", function() {
   if(this.value !== ""){
     description.disabled = false;
-    description.classList.remove("locke");
+    description.classList.remove("locked");
   }
 });
 
